@@ -1,0 +1,98 @@
+spring:
+  profiles:
+    active: development
+
+---
+
+spring:
+  profiles: development
+
+  datasource:
+      url: jdbc:postgresql://localhost:5432/postgres
+      username: postgres
+      password: postgres
+      tomcat:
+        max-wait: 100000
+        max-active: 500
+        test-on-borrow: true
+      driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    database: postgresql
+
+  output:
+    ansi:
+      enabled: detect
+  data:
+    rest:
+      default-page-size: 3
+
+logging:
+  level:
+      com.ua.EMBASA: DEBUG
+      org.hibernate: ERROR
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+security:
+  user:
+    name: user
+    password: user
+    role: TEST
+server:
+  port: 8080
+liquibase:
+  change-log: classpath:changelog/changelog-master.xml
+---
+
+spring:
+  profiles: production
+
+  datasource:
+    url: jdbc:postgresql://dev03.skydigitallab.com:5432/securedb
+    username: app_secembas
+    password: App_secembas$1979
+    tomcat:
+        max-wait: 100000
+        max-active: 500
+        test-on-borrow: true
+        driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    database: postgresql
+
+  output:
+    ansi:
+      enabled: detect
+  data:
+    rest:
+      default-page-size: 3
+
+# ===============================
+# = Logging configurations
+# ===============================
+logging:
+  level:
+    root: WARN
+    com.memorynotfound: DEBUG
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+
+security:
+  user:
+    name: user
+    password: user
+    role: TEST
+
+liquibase:
+  change-log: classpath:changelog/changelog-master.xml
+
